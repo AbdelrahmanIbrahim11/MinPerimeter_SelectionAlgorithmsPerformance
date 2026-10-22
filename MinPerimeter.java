@@ -17,7 +17,7 @@ public class MinPerimeter {
         }
 
         int median = (x2 - x1) / 2 + x1 ;
-        Point medPoint = xs[median] ;
+        Point midPoint = xs[median] ;
 
         Point[] tmp = new Point[y2 - y1 + 1]; 
         for (int i = y1; i <= y2 ; i ++ ) {
@@ -47,23 +47,25 @@ public class MinPerimeter {
         double s = Math.min(left , right) ; 
 
         Point[] strip = new Point[y2 - y1 + 1];
-        int stripSize = 0;
-        double midX = medPoint.x;
+        int strip_size = 0;
+        double midx = midPoint.x;
 
         for (int i = y1; i <= y2; i++) {
-        if (Math.abs(ys[i].x - midX) < s) {
-            strip[stripSize++] = ys[i];
+        if (Math.abs(ys[i].x - midx) < s) {
+            strip[strip_size] = ys[i];
+            strip_size ++ ; 
         }
             }
 
 
-        for (int i = 0; i < stripSize; i++) {
-            Point pi = strip[i];
-            for (int j = i + 1; j < stripSize && (strip[j].y - pi.y) < s; j++) {
-                Point pj = strip[j];
-                for (int k = j + 1; k < stripSize && (strip[k].y - pi.y) < s; k++) {
-                    Point pk = strip[k];
-                    double p = pi.computePerimter(pj, pk);
+            // s here is the delta which makes the window through the strip s * 2s
+        for (int i = 0; i < strip_size; i++) {
+            Point pointCheck_i = strip[i];
+            for (int j = i + 1; j < strip_size && (strip[j].y - pointCheck_i.y) < s; j++) {
+                Point pointCheck_j = strip[j];
+                for (int k = j + 1; k < strip_size && (strip[k].y - pointCheck_i.y) < s; k++) {
+                    Point pointCheck_k = strip[k];
+                    double p = pointCheck_i.computePerimter(pointCheck_j, pointCheck_k);
                     if (p < s) {
                         s = p;
                     }
