@@ -15,6 +15,14 @@ public class Benchmark {
         try (FileWriter writer = new FileWriter("results.csv")) {
             writer.write("size,randomized_ms,deterministic_ms,naive_ms\n");
 
+            for (int w = 0; w < 1000; w++) {
+                double[] warm = new double[100];
+                for (int j = 0; j < 100; j++) warm[j] = rand.nextInt(1000) + 1;
+                randomized.select(warm.clone(), 0, 99, 50);
+                deterministic.select(warm.clone(), 0, 99, 50);
+                naive.selcet(warm.clone(), 50);
+            }
+
             for (int n : sizes) {
                 long randTotal = 0;
                 long detTotal = 0;
