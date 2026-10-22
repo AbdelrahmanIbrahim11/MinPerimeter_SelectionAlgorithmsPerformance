@@ -4,6 +4,7 @@ import java.util.Arrays;
 public class main {
     public static void main(String[] args) {
         Random rand = new Random(42);
+    
 
         Randomized_divide_and_conquer obj = new Randomized_divide_and_conquer();
 

@@ -1,5 +1,5 @@
 public class Deterministic_Linear_Time_Selection {
-    long select (long [] array,int p, int q, int i) {
+    double select (double [] array,int p, int q, int i) {
         // / is integer divison
         // base case of n <= 140 using the bubble sort left 
         if (q - p + 1 <= 140 ) {
@@ -18,16 +18,16 @@ public class Deterministic_Linear_Time_Selection {
         }
         naive_sort(array, st, q); // for sorting the last chunck 
 
-        int med = 2 ;
-        long [] medarray = new  long[k] ;
+        int med =p + 2 ;
+        double [] medarray = new  double[k] ;
 
         for (int j = 0; j < k-1 ; j ++) {
             medarray[j] = array[med] ;
             med = med + 5 ; 
         }
-        medarray[k] = array[(int) Math.ceil((double) (q - st) / 2) + st] ;
+        medarray[k-1] = array[(int) Math.ceil((double) (q - st) / 2) + st] ;
 
-        long median = select(medarray,0 , medarray.length - 1 , medarray.length / 2) ; 
+        double median = select(medarray,0 , medarray.length - 1 , (medarray.length+1) / 2) ; 
 
         int medianIndexSlice = 0 ; 
         int searchMed = p + 2 ; 
@@ -43,7 +43,7 @@ public class Deterministic_Linear_Time_Selection {
 
         // medianIndexSlice is the index of the pivot 
 
-        long temp = 0 ; 
+        double temp = 0 ; 
         temp = array[medianIndexSlice]  ;
         array[medianIndexSlice] = array[q] ;
         array[q] = temp ; 
@@ -61,8 +61,8 @@ public class Deterministic_Linear_Time_Selection {
         }
 
             temp = array[m+1]  ;
-            array[m+1] = array[array.length-1] ;
-            array[array.length-1] = temp ;
+            array[m+1] = array[q] ;
+            array[q] = temp ;
 
             // the pivot now is at index m+1
             // and we we need to find the i th element which is the i - 1 element
@@ -70,14 +70,14 @@ public class Deterministic_Linear_Time_Selection {
             if (i-1 == m+1) return array[m+1] ;
 
             if (i-1 < m+1) return select (array, p, m, i) ;
-            else return  select(array, m+2 , q, i - m)  ;
+            else return  select(array, m+2 , q, i)  ;
 
     }
 
-    void naive_sort (long [] array, int p, int q) {
-        long temp = 0 ;
-        for (int i = 0 ; i < array.length - 1 ; i ++ ) {
-            for (int j = i + 1 ; j < array.length ; j ++ ) {
+    void naive_sort (double [] array, int p, int q) {
+        double temp = 0 ;
+        for (int i = p ; i <= q - 1 ; i ++ ) {
+            for (int j = i + 1 ; j <= q ; j ++ ) {
                 if (array[j] < array[i]) {
                     temp = array[j] ;
                     array[j] = array[i] ;
